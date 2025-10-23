@@ -5,65 +5,41 @@ import { Search, Filter } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import EquipmentCard from "@/components/EquipmentCard";
-
-// Temporary mock data - will be replaced with Supabase data
-const mockEquipments = [
-  {
-    id: "1",
-    equipment_id: "LAB-001",
-    name: "Lathe Machine",
-    category: "Machining",
-    location: "Workshop A",
-    status: "Operational",
-    manufacturer: "HMT",
-    maintenance_due: "2025-12-15",
-  },
-  {
-    id: "2",
-    equipment_id: "LAB-002",
-    name: "Milling Machine",
-    category: "Machining",
-    location: "Workshop A",
-    status: "Maintenance",
-    manufacturer: "ACE",
-    maintenance_due: "2025-11-01",
-  },
-  {
-    id: "3",
-    equipment_id: "LAB-003",
-    name: "3D Printer",
-    category: "Prototyping",
-    location: "Design Lab",
-    status: "Operational",
-    manufacturer: "Prusa",
-    maintenance_due: "2026-01-20",
-  },
-  {
-    id: "4",
-    equipment_id: "LAB-004",
-    name: "Oscilloscope",
-    category: "Electronics",
-    location: "Electronics Lab",
-    status: "Operational",
-    manufacturer: "Tektronix",
-    maintenance_due: "2025-11-30",
-  },
-];
+import { equipmentApi, Equipment } from "@/lib/api";
+import { toast } from "sonner";
 
 export default function Equipments() {
-  const [equipments, setEquipments] = useState(mockEquipments);
+  const [equipments, setEquipments] = useState<Equipment[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
 
-  const categories = ["all", ...Array.from(new Set(mockEquipments.map(e => e.category)))];
-  const statuses = ["all", ...Array.from(new Set(mockEquipments.map(e => e.status)))];
+  useEffect(() => {
+    fetchEquipments();
+  }, []);
+
+  const fetchEquipments = async () => {
+    try {
+      setLoading(true);
+      const data = await equipmentApi.getAll();
+      setEquipments(data);
+    } catch (error) {
+      console.error('Error fetching equipments:', error);
+      toast.error('Failed to load equipment');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const categories = ["all", ...Array.from(new Set(equipments.map(e => e.category).filter(Boolean)))];
+  const statuses = ["all", ...Array.from(new Set(equipments.map(e => e.status).filter(Boolean)))];
 
   const filteredEquipments = equipments.filter((equipment) => {
     const matchesSearch = 
       equipment.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       equipment.equipment_id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      equipment.location.toLowerCase().includes(searchQuery.toLowerCase());
+      (equipment.location || '').toLowerCase().includes(searchQuery.toLowerCase());
     
     const matchesCategory = filterCategory === "all" || equipment.category === filterCategory;
     const matchesStatus = filterStatus === "all" || equipment.status === filterStatus;
@@ -139,10 +115,14 @@ export default function Equipments() {
           </div>
 
           {/* Equipment Grid */}
-          {filteredEquipments.length > 0 ? (
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : filteredEquipments.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredEquipments.map((equipment) => (
-                <EquipmentCard key={equipment.id} equipment={equipment} />
+                <EquipmentCard key={equipment.id || equipment.equipment_id} equipment={equipment} />
               ))}
             </div>
           ) : (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,6 +7,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
+import { scanLogApi } from "@/lib/api";
 
 export default function Scan() {
   const [scanning, setScanning] = useState(false);
@@ -25,34 +26,40 @@ export default function Scan() {
       // For now, simulate scanning with a delay
       await new Promise(resolve => setTimeout(resolve, 1500));
 
+      // Simulate extracting equipment ID from QR code
+      const equipmentId = "LAB-001"; // In production, this would come from actual QR scan
+
       // Get geolocation
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           async (position) => {
-            const locationData = {
-              lat: position.coords.latitude,
-              lon: position.coords.longitude,
-              scannedAt: new Date().toISOString(),
-              equipmentId: "LAB-001", // This would come from QR scan
-              user: "Guest", // Will be replaced with actual user
-            };
+            try {
+              // Log the scan to backend
+              await scanLogApi.create({
+                equipment_id: equipmentId,
+                user_info: "Guest",
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+              });
 
-            // In production, send to backend
-            console.log("Scan logged:", locationData);
-            
-            toast.success("QR Code scanned successfully!");
-            navigate(`/equipment/1`); // Navigate to equipment details
+              toast.success("QR Code scanned successfully!");
+              navigate(`/equipment/${equipmentId}`);
+            } catch (error) {
+              console.error("Error logging scan:", error);
+              toast.warning("Scan successful but logging failed");
+              navigate(`/equipment/${equipmentId}`);
+            }
           },
           (err) => {
             console.error("Location error:", err);
             toast.warning("Location access denied, but scan was successful");
-            navigate(`/equipment/1`);
+            navigate(`/equipment/${equipmentId}`);
           },
           { enableHighAccuracy: true }
         );
       } else {
         toast.warning("Geolocation not supported, but scan was successful");
-        navigate(`/equipment/1`);
+        navigate(`/equipment/${equipmentId}`);
       }
     } catch (err) {
       setError("Failed to scan QR code. Please try again.");
