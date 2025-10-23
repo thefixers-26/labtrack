@@ -14,7 +14,90 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      equipment: {
+        Row: {
+          assigned_user: string | null
+          category: string | null
+          created_at: string
+          equipment_id: string
+          id: string
+          location: string | null
+          maintenance_due: string | null
+          manufacturer: string | null
+          name: string
+          notes: string | null
+          purchase_date: string | null
+          qr_url: string | null
+          serial_no: string | null
+          specifications: string | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          assigned_user?: string | null
+          category?: string | null
+          created_at?: string
+          equipment_id: string
+          id?: string
+          location?: string | null
+          maintenance_due?: string | null
+          manufacturer?: string | null
+          name: string
+          notes?: string | null
+          purchase_date?: string | null
+          qr_url?: string | null
+          serial_no?: string | null
+          specifications?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          assigned_user?: string | null
+          category?: string | null
+          created_at?: string
+          equipment_id?: string
+          id?: string
+          location?: string | null
+          maintenance_due?: string | null
+          manufacturer?: string | null
+          name?: string
+          notes?: string | null
+          purchase_date?: string | null
+          qr_url?: string | null
+          serial_no?: string | null
+          specifications?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      scan_logs: {
+        Row: {
+          equipment_id: string
+          id: string
+          latitude: number | null
+          longitude: number | null
+          scanned_at: string
+          user_info: string | null
+        }
+        Insert: {
+          equipment_id: string
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          scanned_at?: string
+          user_info?: string | null
+        }
+        Update: {
+          equipment_id?: string
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          scanned_at?: string
+          user_info?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
