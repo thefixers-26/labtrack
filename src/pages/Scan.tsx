@@ -70,7 +70,7 @@ export default function Scan() {
   };
 
   const handleCameraClick = () => {
-    // Trigger file input when camera button is clicked
+    // Trigger file input (camera only) when button is clicked
     document.getElementById("qr-file-input")?.click();
   };
 
@@ -83,7 +83,7 @@ export default function Scan() {
           <div className="mb-8 text-center">
             <h1 className="text-3xl lg:text-4xl font-bold mb-2">Scan Equipment QR Code</h1>
             <p className="text-muted-foreground">
-              Upload or capture a QR code to view equipment details and log the scan
+              Capture a QR code using your camera to view equipment details and log the scan
             </p>
           </div>
 
@@ -107,7 +107,7 @@ export default function Scan() {
                         </div>
                         <h3 className="text-lg font-semibold mb-2">Ready to Scan</h3>
                         <p className="text-sm text-muted-foreground mb-6">
-                          Click the button below to capture or upload a QR code image
+                          Click the button below to capture a QR code using your camera
                         </p>
                         <input
                           type="file"
@@ -119,7 +119,7 @@ export default function Scan() {
                         />
                         <Button onClick={handleCameraClick} size="lg" className="w-full max-w-xs">
                           <Camera className="mr-2 h-5 w-5" />
-                          Open Camera / Upload Image
+                          Open Camera
                         </Button>
                       </div>
                     ) : (
@@ -181,7 +181,7 @@ export default function Scan() {
                 <ol className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="font-semibold text-foreground">1.</span>
-                    <span>Click the button to open your camera or select an image</span>
+                    <span>Click the button to open your camera</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="font-semibold text-foreground">2.</span>
