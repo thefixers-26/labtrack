@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About */}
           <div>
-            <h3 className="font-semibold text-lg mb-3">LabTrack System</h3>
+            <h3 className="font-semibold text-lg mb-3">PSG LabTrack System</h3>
             <p className="text-sm text-muted-foreground">
               QR-based equipment tracking solution for modern laboratories.
               Track, manage, and monitor your lab equipment efficiently.
@@ -52,7 +52,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-6 border-t border-border text-center text-sm text-muted-foreground">
-          <p>© 2025 LabTrack System. Developed with ❤️ for modern laboratories.</p>
+          <p>© 2025 PSG LabTrack. Developed by DR R Mohanraj</p>
         </div>
       </div>
     </footer>

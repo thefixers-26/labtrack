@@ -26,7 +26,7 @@ export default function Navbar() {
               <QrCode className="h-6 w-6 text-primary-foreground" />
             </div>
             <span className="hidden sm:inline bg-gradient-primary bg-clip-text text-transparent">
-              LabTrack
+              PSG LabTrack
             </span>
           </Link>
 

@@ -8,11 +8,22 @@ const corsHeaders = {
 interface Equipment {
   equipment_id: string;
   name: string;
+  make?: string;
+  serial_no?: string;
+  model_no?: string;
+  purchase_date?: string;
+  stock_register_info?: string;
+  physical_presence?: string;
+  working_status?: string;
+  repair_status?: string;
+  funding_source?: string;
+  govt_registration?: string;
+  project_completion_year?: string;
+  purchase_cost?: number;
+  location?: string;
+  faculty_incharge?: string;
   category?: string;
   manufacturer?: string;
-  serial_no?: string;
-  purchase_date?: string;
-  location?: string;
   status?: string;
   specifications?: string;
   maintenance_due?: string;

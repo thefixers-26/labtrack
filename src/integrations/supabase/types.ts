@@ -20,54 +20,87 @@ export type Database = {
           category: string | null
           created_at: string
           equipment_id: string
+          faculty_incharge: string | null
+          funding_source: string | null
+          govt_registration: string | null
           id: string
           location: string | null
           maintenance_due: string | null
+          make: string | null
           manufacturer: string | null
+          model_no: string | null
           name: string
           notes: string | null
+          physical_presence: string | null
+          project_completion_year: string | null
+          purchase_cost: number | null
           purchase_date: string | null
           qr_url: string | null
+          repair_status: string | null
           serial_no: string | null
           specifications: string | null
           status: string | null
+          stock_register_info: string | null
           updated_at: string
+          working_status: string | null
         }
         Insert: {
           assigned_user?: string | null
           category?: string | null
           created_at?: string
           equipment_id: string
+          faculty_incharge?: string | null
+          funding_source?: string | null
+          govt_registration?: string | null
           id?: string
           location?: string | null
           maintenance_due?: string | null
+          make?: string | null
           manufacturer?: string | null
+          model_no?: string | null
           name: string
           notes?: string | null
+          physical_presence?: string | null
+          project_completion_year?: string | null
+          purchase_cost?: number | null
           purchase_date?: string | null
           qr_url?: string | null
+          repair_status?: string | null
           serial_no?: string | null
           specifications?: string | null
           status?: string | null
+          stock_register_info?: string | null
           updated_at?: string
+          working_status?: string | null
         }
         Update: {
           assigned_user?: string | null
           category?: string | null
           created_at?: string
           equipment_id?: string
+          faculty_incharge?: string | null
+          funding_source?: string | null
+          govt_registration?: string | null
           id?: string
           location?: string | null
           maintenance_due?: string | null
+          make?: string | null
           manufacturer?: string | null
+          model_no?: string | null
           name?: string
           notes?: string | null
+          physical_presence?: string | null
+          project_completion_year?: string | null
+          purchase_cost?: number | null
           purchase_date?: string | null
           qr_url?: string | null
+          repair_status?: string | null
           serial_no?: string | null
           specifications?: string | null
           status?: string | null
+          stock_register_info?: string | null
           updated_at?: string
+          working_status?: string | null
         }
         Relationships: []
       }
